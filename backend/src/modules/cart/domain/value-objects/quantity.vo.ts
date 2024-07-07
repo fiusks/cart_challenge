@@ -1,12 +1,11 @@
+import { z } from 'zod';
 export class Quantity {
-  constructor(private value: number) {
-    if (value < 1) {
-      throw new Error('A quantidade deve ser maior ou igual a 1');
-    }
+  public static get validator() {
+    return z.number().positive();
   }
 
-  getValue(): number {
-    return this.value;
+  public static create(props: Quantity.CreateProps): Quantity {
+    return new Quantity(Quantity.validator.parse(props));
   }
 
   increment(amount?: number): void {
@@ -16,7 +15,7 @@ export class Quantity {
       throw new Error('Quantidade de ser maior que zero');
     }
 
-    this.value += incrementAmount;
+    this.#value += incrementAmount;
   }
 
   decrement(amount?: number): void {
@@ -30,6 +29,25 @@ export class Quantity {
       throw new Error('Quantidade negativa');
     }
 
-    this.value -= decrementAmount;
+    this.#value -= decrementAmount;
   }
+
+  public toJSON(): Quantity.JSON {
+    return this.#value;
+  }
+
+  public get value(): number {
+    return this.#value;
+  }
+
+  #value: number;
+
+  constructor(quantity: number) {
+    this.#value = quantity;
+  }
+}
+export namespace Quantity {
+  export type CreateProps = number;
+
+  export type JSON = number;
 }

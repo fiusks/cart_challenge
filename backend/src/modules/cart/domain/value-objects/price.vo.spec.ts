@@ -2,15 +2,16 @@ import { Price } from './price.vo';
 
 describe('Price', () => {
   test('should create a instance of Price', () => {
-    const priceValue = BigInt(100);
-    const price = new Price(priceValue);
+    const priceValue = 100;
+    const price = Price.create(BigInt(100));
     expect(price).toBeInstanceOf(Price);
-    expect(price.getValue()).toEqual(priceValue);
+    expect(price.value).toBe(BigInt(priceValue));
+    expect(price.toJSON()).toEqual(priceValue.toString());
   });
 
   test('should throw an error for negative price', () => {
     expect(() => {
-      new Price(BigInt(-100));
+      Price.create(BigInt(-100));
     }).toThrow();
   });
 });
