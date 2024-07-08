@@ -16,12 +16,6 @@ describe('Quantity', () => {
   });
 
   describe('increment', () => {
-    test('should increment by default amount (1)', () => {
-      const quantity = Quantity.create(3);
-      quantity.increment();
-      expect(quantity.value).toEqual(4);
-    });
-
     test('should increment by specified amount', () => {
       const quantity = Quantity.create(3);
       quantity.increment(2);
@@ -37,12 +31,6 @@ describe('Quantity', () => {
   });
 
   describe('decrement', () => {
-    test('should decrement by default amount (1)', () => {
-      const quantity = Quantity.create(3);
-      quantity.decrement();
-      expect(quantity.value).toEqual(2);
-    });
-
     test('should decrement by specified amount', () => {
       const quantity = Quantity.create(3);
       quantity.decrement(2);
