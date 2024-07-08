@@ -8,6 +8,6 @@ describe('Product', () => {
 
     expect(product).toBeInstanceOf(Product);
     expect(product.name).toEqual(productName);
-    expect(product.price).toBe(price);
+    expect(product.price.value).toBe(price);
   });
 });
