@@ -8,28 +8,24 @@ export class Quantity {
     return new Quantity(Quantity.validator.parse(props));
   }
 
-  increment(amount?: number): void {
-    const incrementAmount = amount ?? 1;
-
-    if (incrementAmount <= 0) {
-      throw new Error('Quantidade de ser maior que zero');
+  increment(amount: number): void {
+    if (amount <= 0) {
+      throw new Error('Quantidade deve ser maior que zero');
     }
 
-    this.#value += incrementAmount;
+    this.#value += amount;
   }
 
-  decrement(amount?: number): void {
-    const decrementAmount = amount ?? 1;
-
-    if (decrementAmount <= 0) {
-      throw new Error('Quantidade de ser maior que zero');
+  decrement(amount: number): void {
+    if (amount <= 0) {
+      throw new Error('Quantidade deve ser maior que zero');
     }
 
-    if (this.value === 0 || this.value - decrementAmount < 0) {
-      throw new Error('Quantidade negativa');
+    if (this.value === 0 || this.value - amount < 0) {
+      throw new Error('Quantidade não pode ser negativa');
     }
 
-    this.#value -= decrementAmount;
+    this.#value -= amount;
   }
 
   public toJSON(): Quantity.JSON {
