@@ -10,7 +10,7 @@ export class Price {
   }
 
   public toJSON(): Price.JSON {
-    return this.#value.toString();
+    return this.#value;
   }
 
   public get value(): bigint {
@@ -27,5 +27,5 @@ export class Price {
 export namespace Price {
   export type CreateProps = bigint;
 
-  export type JSON = string;
+  export type JSON = bigint;
 }
