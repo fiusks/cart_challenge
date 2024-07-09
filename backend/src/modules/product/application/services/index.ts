@@ -1,1 +1,1 @@
-export * from './find-product-by-id.service';
+export * from './list-products.service';
