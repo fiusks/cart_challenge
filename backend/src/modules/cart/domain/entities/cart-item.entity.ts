@@ -32,8 +32,8 @@ export class CartItem extends BaseEntity {
   public toJSON() {
     return {
       id: this.id.toJSON(),
-      product: this.#product,
-      quantity: this.#quantity,
+      product: this.#product.toJSON(),
+      quantity: this.#quantity.toJSON(),
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
