@@ -1,1 +1,1 @@
-export * from './find-product-by-id';
+export * from './list-products';
