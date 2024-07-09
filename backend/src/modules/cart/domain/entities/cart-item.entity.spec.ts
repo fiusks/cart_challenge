@@ -1,6 +1,6 @@
 import { CartItem } from './cart-item.entity';
 import { Quantity } from '../value-objects';
-import { Product } from '~/product/domain';
+import { Product } from '~/modules/product/domain';
 
 describe('CartItem', () => {
   let productProps: Product.CreateProps;

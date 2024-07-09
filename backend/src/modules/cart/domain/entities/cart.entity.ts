@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { BaseEntity, EntityId } from '~/common/domain';
+import { BaseEntity, EntityId } from '~/modules/common/domain';
 import { CartItem } from './cart-item.entity';
 import { UnprocessableEntityException } from '@nestjs/common';
 

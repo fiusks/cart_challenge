@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { BaseEntity, EntityId } from '~/common/domain';
+import { BaseEntity, EntityId } from '~/modules/common/domain';
 import { Price } from '../value-objects';
 
 export class Product extends BaseEntity {
