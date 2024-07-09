@@ -7,7 +7,6 @@ import {
 } from './@nestjs';
 
 @Module({
-  imports: [],
   providers: [...infraFactories, ...domainFactories, ...applicationFactories],
   controllers: [ProductController],
 })
