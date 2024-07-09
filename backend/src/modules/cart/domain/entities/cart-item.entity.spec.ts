@@ -71,6 +71,6 @@ describe('CartItem', () => {
     const json = cartItem.toJSON();
 
     expect(json.product.name).toBe('Floratta');
-    expect(json.quantity.value).toBe(2);
+    expect(json.quantity).toBe(2);
   });
 });
