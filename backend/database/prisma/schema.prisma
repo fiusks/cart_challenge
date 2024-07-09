@@ -1,0 +1,29 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgres"
+    url      = env("PRISMA_DATABASE_URL")
+}
+
+model Product {
+    id       String     @id @default(uuid())
+    name     String     @unique() @db.VarChar(50)
+    price    BigInt
+    CartItem CartItem[]
+}
+
+model CartItem {
+    id            String  @id @default(uuid())
+    product       Product @relation(fields: [productId], references: [id])
+    productId     String
+    quantity      Int
+    Cart          Cart?   @relation(fields: [cartSessionId], references: [sessionId])
+    cartSessionId String?
+}
+
+model Cart {
+    sessionId String     @id @default(uuid())
+    items     CartItem[]
+}
