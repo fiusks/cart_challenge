@@ -1,7 +1,7 @@
 import { FactoryProvider } from '@nestjs/common';
 
-import { findProductByIdServiceFactory } from './find-product-by-id.factory';
+import { listProductsServiceFactory } from './list-products.factory';
 
 export const applicationFactories: FactoryProvider[] = [
-  findProductByIdServiceFactory,
+  listProductsServiceFactory,
 ];

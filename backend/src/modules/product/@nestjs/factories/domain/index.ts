@@ -1,4 +1,4 @@
 import { FactoryProvider } from '@nestjs/common';
-import { findProductByIdFactory } from './find-product-by-id.factory';
+import { listProductsFactory } from './list-products.factory';
 
-export const domainFactories: FactoryProvider[] = [findProductByIdFactory];
+export const domainFactories: FactoryProvider[] = [listProductsFactory];
