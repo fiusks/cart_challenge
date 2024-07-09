@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { z } from 'zod';
 
 export class EntityId {
-  public static create(createProps: EntityId.CreateProps): EntityId {
+  public static create(createProps?: EntityId.CreateProps): EntityId {
     if (!createProps) {
       return this.generate();
     }
