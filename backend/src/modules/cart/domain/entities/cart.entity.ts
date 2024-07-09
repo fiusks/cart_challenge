@@ -1,0 +1,120 @@
+import { z } from 'zod';
+import { BaseEntity, EntityId } from '~/common/domain';
+import { CartItem } from './cart-item.entity';
+import { UnprocessableEntityException } from '@nestjs/common';
+
+export class Cart extends BaseEntity {
+  public static get validator() {
+    return BaseEntity.baseValidator.extend({
+      sessionId: z.string().uuid(),
+      items: z.array(z.instanceof(CartItem)),
+      total: z.bigint().default(BigInt(0)),
+    });
+  }
+
+  public static create(props: Cart.CreateProps): Cart {
+    return new Cart(Cart.validator.parse(props));
+  }
+
+  public addItem(props: CartItem.CreateProps): void {
+    const existingItem = this.#items.find(
+      (item) => item.product.id.id === props.product.id,
+    );
+
+    if (existingItem) {
+      existingItem.increaseQuantity(props.quantity);
+    } else {
+      const newCartItem = CartItem.create({
+        product: props.product,
+        quantity: props.quantity,
+      });
+
+      this.#items.push(newCartItem);
+    }
+  }
+
+  public removeItem(props: CartItem.CreateProps) {
+    const existingItem = this.#items.find(
+      (item) => item.product.id.id === props.product.id,
+    );
+
+    if (!existingItem) {
+      throw new UnprocessableEntityException('Produto não existe no carrinho');
+    }
+
+    existingItem.decreaseQuantity(props.quantity);
+
+    if (existingItem.quantity.value <= 0) {
+      this.#items = this.#items.filter(
+        (item) => item.product.id.id !== props.product.id,
+      );
+    }
+  }
+
+  private calculateTotal(): bigint {
+    return this.#items.reduce(
+      (previousCart, currentCart) => previousCart + currentCart.getTotalPrice(),
+      BigInt(0),
+    );
+  }
+
+  public toJSON(): Cart.JSON {
+    return {
+      id: this.id.toJSON(),
+      sessionId: this.sessionId,
+      items: this.#items.map((item) => item.toJSON()),
+      total: this.total,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+    };
+  }
+
+  public get sessionId() {
+    return this.#sessionId;
+  }
+
+  public get items() {
+    return this.#items;
+  }
+
+  public get total() {
+    return this.calculateTotal();
+  }
+
+  readonly #sessionId: string;
+  #items: CartItem[];
+
+  constructor(props: Cart.Props) {
+    super(props.id, props.createdAt, props.updatedAt);
+    this.#sessionId = props.sessionId;
+    this.#items = props.items;
+  }
+}
+
+export namespace Cart {
+  export type CreateProps = {
+    id?: string;
+    sessionId: string;
+    items: CartItem.CreateProps[];
+    createdAt?: Date;
+    updatedAt?: Date;
+  };
+
+  export type Props = {
+    id: EntityId;
+    sessionId: string;
+    items: CartItem[];
+    total: bigint;
+    createdAt: Date;
+    updatedAt: Date;
+  };
+
+  export type JSON = {
+    id: EntityId.JSON;
+    sessionId: string;
+    items: CartItem.JSON[];
+    total: bigint;
+    createdAt: Date;
+    updatedAt: Date;
+  };
+}
