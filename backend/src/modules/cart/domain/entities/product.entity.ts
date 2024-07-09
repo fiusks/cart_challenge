@@ -18,7 +18,7 @@ export class Product extends BaseEntity {
     return {
       id: this.id.toJSON(),
       name: this.name,
-      price: this.price,
+      price: this.price.toJSON(),
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
