@@ -21,6 +21,8 @@
     "strict": true,
     "baseUrl":"./",
     "paths": {
+      "~/config/*": ["config/*"],
+      "~/database/*": ["database/*"],
       "~/*": ["src/*"],
     },
     "typeRoots": [
