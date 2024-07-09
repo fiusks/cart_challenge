@@ -1,6 +1,6 @@
 import { BaseEntity, EntityId } from '~/common/domain';
-import { Product } from './product.entity';
 import { Quantity } from '../value-objects';
+import { Product } from '~/product/domain';
 
 export class CartItem extends BaseEntity {
   public static get validator() {
