@@ -6,7 +6,7 @@ describe('Price', () => {
     const price = Price.create(BigInt(100));
     expect(price).toBeInstanceOf(Price);
     expect(price.value).toBe(BigInt(priceValue));
-    expect(price.toJSON()).toEqual(BigInt(priceValue));
+    expect(price.toJSON()).toEqual(BigInt(priceValue).toString());
   });
 
   test('should throw an error for negative price', () => {
