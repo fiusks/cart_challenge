@@ -7,6 +7,7 @@ export class Product extends BaseEntity {
     return BaseEntity.baseValidator.extend({
       name: z.string(),
       price: Price.validator.transform((props) => new Price(props)),
+      imageUrl: z.string().url(),
     });
   }
 
@@ -19,6 +20,7 @@ export class Product extends BaseEntity {
       id: this.id.toJSON(),
       name: this.#name,
       price: this.#price.toCreateProps(),
+      imageUrl: this.#imageUrl,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
@@ -29,6 +31,7 @@ export class Product extends BaseEntity {
       id: this.id.toJSON(),
       name: this.#name,
       price: this.#price.toJSON(),
+      imageUrl: this.#imageUrl,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
@@ -42,13 +45,19 @@ export class Product extends BaseEntity {
     return this.#price;
   }
 
+  public get imageUrl(): string {
+    return this.#imageUrl;
+  }
+
   readonly #name: string;
   readonly #price: Price;
+  readonly #imageUrl: string;
 
   constructor(props: Product.Props) {
     super(props.id, props.createdAt, props.updatedAt);
     this.#name = props.name;
     this.#price = props.price;
+    this.#imageUrl = props.imageUrl;
   }
 }
 
@@ -57,6 +66,7 @@ export namespace Product {
     id?: string;
     name: string;
     price: Price.CreateProps;
+    imageUrl: string;
     createdAt?: Date;
     updatedAt?: Date;
   };
@@ -65,6 +75,7 @@ export namespace Product {
     id: EntityId;
     name: string;
     price: Price;
+    imageUrl: string;
     createdAt: Date;
     updatedAt: Date;
   };
@@ -73,6 +84,7 @@ export namespace Product {
     id: EntityId.JSON;
     name: string;
     price: Price.JSON;
+    imageUrl: string;
     createdAt: Date;
     updatedAt: Date;
   };
