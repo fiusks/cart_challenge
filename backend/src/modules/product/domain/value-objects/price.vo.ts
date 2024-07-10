@@ -9,8 +9,12 @@ export class Price {
     return new Price(Price.validator.parse(props));
   }
 
-  public toJSON(): Price.JSON {
+  public toCreateProps(): Price.CreateProps {
     return this.#value;
+  }
+
+  public toJSON(): Price.JSON {
+    return this.#value.toString();
   }
 
   public get value(): bigint {
@@ -27,5 +31,5 @@ export class Price {
 export namespace Price {
   export type CreateProps = bigint;
 
-  export type JSON = bigint;
+  export type JSON = string;
 }

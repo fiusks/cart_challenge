@@ -14,11 +14,21 @@ export class Product extends BaseEntity {
     return new Product(Product.validator.parse(props));
   }
 
+  public toCreateProps() {
+    return {
+      id: this.id.toJSON(),
+      name: this.#name,
+      price: this.#price.toCreateProps(),
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+    };
+  }
+
   public toJSON() {
     return {
       id: this.id.toJSON(),
-      name: this.name,
-      price: this.price.toJSON(),
+      name: this.#name,
+      price: this.#price.toJSON(),
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
