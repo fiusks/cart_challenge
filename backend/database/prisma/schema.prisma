@@ -25,6 +25,6 @@ model CartItem {
 
 model Cart {
     id        String     @id @default(uuid())
-    sessionId String     @default(uuid())
+    sessionId String     @unique @default(uuid())
     items     CartItem[]
 }
