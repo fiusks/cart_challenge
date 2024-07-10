@@ -6,8 +6,8 @@ import { UpdateCartItemInputDto } from '../dtos';
 
 export class RemoveCartItem {
   constructor(
-    private readonly cartRepository: CartRepository,
     private readonly productRepository: ProductRepository,
+    private readonly cartRepository: CartRepository,
   ) {}
 
   public async execute(input: UpdateCartItemInputDto): Promise<Cart> {
@@ -24,11 +24,18 @@ export class RemoveCartItem {
       throw new NotFoundException('Carrinho não encontrado');
     }
 
-    cart.removeItem({
+    const cartItem = cart.removeItem({
       product: product.toCreateProps(),
       quantity,
     });
 
-    return await this.cartRepository.update(cart);
+    if (cartItem.quantity.value === 0) {
+      return await this.cartRepository.deleteCartItem(
+        cart.sessionId,
+        cartItem.id.id,
+      );
+    }
+
+    return await this.cartRepository.removeCartItem(cart.sessionId, cartItem);
   }
 }
