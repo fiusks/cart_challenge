@@ -7,7 +7,9 @@ export class Cart extends BaseEntity {
   public static get validator() {
     return BaseEntity.baseValidator.extend({
       sessionId: z.string().uuid(),
-      items: z.array(z.instanceof(CartItem)),
+      items: z.array(
+        CartItem.validator.transform((item) => new CartItem(item)),
+      ),
       total: z.bigint().default(BigInt(0)),
     });
   }
@@ -16,24 +18,26 @@ export class Cart extends BaseEntity {
     return new Cart(Cart.validator.parse(props));
   }
 
-  public addItem(props: CartItem.CreateProps): void {
+  public addItem(props: CartItem.CreateProps): CartItem {
     const existingItem = this.#items.find(
       (item) => item.product.id.id === props.product.id,
     );
 
     if (existingItem) {
       existingItem.increaseQuantity(props.quantity);
-    } else {
-      const newCartItem = CartItem.create({
-        product: props.product,
-        quantity: props.quantity,
-      });
-
-      this.#items.push(newCartItem);
+      return existingItem;
     }
+
+    const newCartItem = CartItem.create({
+      product: props.product,
+      quantity: props.quantity,
+    });
+
+    this.#items.push(newCartItem);
+    return newCartItem;
   }
 
-  public removeItem(props: CartItem.CreateProps) {
+  public removeItem(props: CartItem.CreateProps): CartItem {
     const existingItem = this.#items.find(
       (item) => item.product.id.id === props.product.id,
     );
@@ -44,11 +48,13 @@ export class Cart extends BaseEntity {
 
     existingItem.decreaseQuantity(props.quantity);
 
-    if (existingItem.quantity.value <= 0) {
-      this.#items = this.#items.filter(
-        (item) => item.product.id.id !== props.product.id,
+    if (existingItem.quantity.value < 0) {
+      throw new UnprocessableEntityException(
+        'Quantidade não pode ser menor do que zero',
       );
     }
+
+    return existingItem;
   }
 
   private calculateTotal(): bigint {
