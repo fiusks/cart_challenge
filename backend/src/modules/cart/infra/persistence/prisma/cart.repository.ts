@@ -13,6 +13,7 @@ export class PrismaCartRepository implements CartRepository {
   public async create(cart: Cart): Promise<Cart> {
     const prismaCart = await this.prisma.cart.create({
       data: {
+        sessionId: cart.id.id,
         items: {
           createMany: {
             data: cart.items.map((cart) => {
@@ -45,7 +46,7 @@ export class PrismaCartRepository implements CartRepository {
     const prismaCart = await this.prisma.cart.update({
       where: { sessionId: cart.id.id },
       data: {
-        items: { set: [...cart.items.map((cart) => cart.toJSON())] },
+        items: { set: [...cart.items.map((cart) => cart.toCreateProps())] },
       },
       include: PrismaCartRepository.include,
     });
