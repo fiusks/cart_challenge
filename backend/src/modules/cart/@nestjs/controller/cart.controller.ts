@@ -8,8 +8,8 @@ export class CartController {
   constructor(private readonly createCart: CreateCartService) {}
 
   @Post('/carts')
-  public async index(): Promise<any> {
-    const cart = await this.createCart.execute();
+  public async index(@Param('sessionId') sessionId: string): Promise<any> {
+    const cart = await this.createCart.execute(sessionId);
 
     return plainToInstance(CartDto, cart.toJSON());
   }
