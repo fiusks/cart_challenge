@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { differenceInHours } from 'date-fns';
 import { BaseEntity, EntityId } from '~/modules/common/domain';
 import { CartItem } from './cart-item.entity';
 import { UnprocessableEntityException } from '@nestjs/common';
@@ -9,6 +10,7 @@ export class Cart extends BaseEntity {
       sessionId: z.string().uuid(),
       items: z.array(z.instanceof(CartItem)),
       total: z.bigint().default(BigInt(0)),
+      enabled: z.boolean().optional().default(true),
     });
   }
 
@@ -73,6 +75,7 @@ export class Cart extends BaseEntity {
       id: this.id.toJSON(),
       sessionId: this.sessionId,
       items: this.#items.map((item) => item.toJSON()),
+      enabled: this.#enabled,
       total: this.total.toString(),
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
@@ -91,13 +94,26 @@ export class Cart extends BaseEntity {
     return this.calculateTotal();
   }
 
+  public get enabled() {
+    this.checkIfDisabled();
+    return this.#enabled;
+  }
+
+  private checkIfDisabled() {
+    if (differenceInHours(new Date(), this.createdAt) > 24) {
+      this.#enabled = false;
+    }
+  }
+
   readonly #sessionId: string;
+  #enabled: boolean;
   #items: CartItem[];
 
   constructor(props: Cart.Props) {
     super(props.id, props.createdAt, props.updatedAt);
     this.#sessionId = props.sessionId;
     this.#items = props.items;
+    this.#enabled = props.enabled;
   }
 }
 
@@ -114,6 +130,7 @@ export namespace Cart {
     id: EntityId;
     sessionId: string;
     items: CartItem[];
+    enabled: boolean;
     total: bigint;
     createdAt: Date;
     updatedAt: Date;
@@ -123,6 +140,7 @@ export namespace Cart {
     id: EntityId.JSON;
     sessionId: string;
     items: CartItem.JSON[];
+    enabled: boolean;
     total: string;
     createdAt: Date;
     updatedAt: Date;
