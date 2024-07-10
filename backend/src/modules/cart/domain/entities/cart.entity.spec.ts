@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { UnprocessableEntityException } from '@nestjs/common';
 import { Cart } from './cart.entity';
+import { subHours } from 'date-fns';
 
 describe('Cart', () => {
   const florattaProduct = {
@@ -32,7 +33,7 @@ describe('Cart', () => {
 
   test('should add items to the cart', () => {
     const cart = Cart.create({
-      sessionId: uuidv4(),
+      sessionId: cartSessionId,
       items: [],
     });
 
@@ -88,6 +89,26 @@ describe('Cart', () => {
     expect(() => cart.removeItem({ product, quantity: 5 })).toThrow(
       UnprocessableEntityException,
     );
+  });
+
+  test('should be enabled if createdAt is younger than 24h', () => {
+    const cart = Cart.create({
+      sessionId: cartSessionId,
+      items: [],
+      createdAt: subHours(new Date(), 25),
+    });
+
+    expect(cart.enabled).toBe(false);
+  });
+
+  test('should be disabled if createdAt is older than 24h', () => {
+    const cart = Cart.create({
+      sessionId: cartSessionId,
+      items: [],
+      createdAt: subHours(new Date(), 25),
+    });
+
+    expect(cart.enabled).toBe(false);
   });
 
   test('should convert to JSON', () => {
