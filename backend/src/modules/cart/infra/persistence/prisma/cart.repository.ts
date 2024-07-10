@@ -1,4 +1,3 @@
-import { NotFoundException } from '@nestjs/common';
 import { Cart, CartRepository } from '~/modules/cart/domain';
 import { PrismaService } from '~/modules/common/infra';
 
@@ -32,13 +31,13 @@ export class PrismaCartRepository implements CartRepository {
     return Cart.create(prismaCart);
   }
 
-  public async findById(id: string): Promise<Cart> {
+  public async findById(id: string): Promise<Cart | null> {
     const prismaCart = await this.prisma.cart.findUnique({
       where: { sessionId: id },
       include: PrismaCartRepository.include,
     });
 
-    if (!prismaCart) throw new NotFoundException('Carrinho não encontrado');
+    if (!prismaCart) return null;
 
     return Cart.create(prismaCart);
   }
