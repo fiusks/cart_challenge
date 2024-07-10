@@ -1,1 +1,1 @@
-export * from './convertCurrencyToLocaleBRL'
+export * from './convert-currency';
