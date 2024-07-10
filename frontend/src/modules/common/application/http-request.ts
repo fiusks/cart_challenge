@@ -1,6 +1,6 @@
 import { HttpClient } from '../domain';
 
-const baseURL = 'http://localhost:3333/';
+const baseURL = process.env.BASE_URL;
 
 export const fetchHttpClient: HttpClient = async (url, init) => {
   const _url = url instanceof URL ? url : new URL(url, baseURL);
