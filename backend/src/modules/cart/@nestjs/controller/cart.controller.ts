@@ -7,7 +7,7 @@ import { CartDto } from '../dto/cart.dto';
 export class CartController {
   constructor(private readonly createCart: CreateCartService) {}
 
-  @Post('/carts')
+  @Post('/carts/:sessionId')
   public async index(@Param('sessionId') sessionId: string): Promise<any> {
     const cart = await this.createCart.execute(sessionId);
 
