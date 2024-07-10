@@ -8,23 +8,29 @@ datasource db {
 }
 
 model Product {
-    id       String     @id @default(uuid())
-    name     String     @unique() @db.VarChar(50)
-    price    BigInt
-    CartItem CartItem[]
+    id        String     @id @default(uuid())
+    name      String     @unique() @db.VarChar(50)
+    price     BigInt
+    CartItem  CartItem[]
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @default(now()) @updatedAt
 }
 
 model CartItem {
-    id        String  @id @default(uuid())
-    product   Product @relation(fields: [productId], references: [id])
+    id        String   @id @default(uuid())
+    product   Product  @relation(fields: [productId], references: [id])
     productId String
     quantity  Int
-    Cart      Cart?   @relation(fields: [cartId], references: [id])
+    Cart      Cart?    @relation(fields: [cartId], references: [id])
     cartId    String?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Cart {
     id        String     @id @default(uuid())
     sessionId String     @unique @default(uuid())
     items     CartItem[]
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @default(now()) @updatedAt
 }
