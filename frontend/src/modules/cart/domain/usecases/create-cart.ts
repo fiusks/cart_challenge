@@ -1,5 +1,5 @@
 import { Cart } from '../models';
 
 export interface CreateCart {
-  execute(): Promise<Cart>;
+  execute(sessionId: string): Promise<Cart>;
 }
