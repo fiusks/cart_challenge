@@ -58,12 +58,22 @@ export class Cart extends BaseEntity {
     );
   }
 
+  public toCreateProps() {
+    return {
+      id: this.id.toJSON(),
+      sessionId: this.#sessionId,
+      item: this.#items.map((item) => item.toCreateProps()),
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+    };
+  }
+
   public toJSON(): Cart.JSON {
     return {
       id: this.id.toJSON(),
       sessionId: this.sessionId,
       items: this.#items.map((item) => item.toJSON()),
-      total: this.total,
+      total: this.total.toString(),
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
@@ -113,7 +123,7 @@ export namespace Cart {
     id: EntityId.JSON;
     sessionId: string;
     items: CartItem.JSON[];
-    total: bigint;
+    total: string;
     createdAt: Date;
     updatedAt: Date;
   };

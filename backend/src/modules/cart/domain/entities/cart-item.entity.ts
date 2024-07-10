@@ -29,6 +29,16 @@ export class CartItem extends BaseEntity {
     return BigInt(this.#quantity.value) * this.product.price.value;
   }
 
+  public toCreateProps() {
+    return {
+      id: this.id.toJSON(),
+      product: this.#product.toCreateProps(),
+      quantity: this.#quantity.toCreateProps(),
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+    };
+  }
+
   public toJSON() {
     return {
       id: this.id.toJSON(),

@@ -30,6 +30,10 @@ export class Quantity {
     this.#value -= value;
   }
 
+  public toCreateProps(): Quantity.CreateProps {
+    return this.#value;
+  }
+
   public toJSON(): Quantity.JSON {
     return this.#value;
   }
