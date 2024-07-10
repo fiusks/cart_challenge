@@ -2,6 +2,7 @@ import { NotFoundException } from '@nestjs/common';
 import { Cart } from '../entities';
 import { CartRepository } from '../repositories';
 import { ProductRepository } from '~/modules/product/domain';
+import { UpdateCartItemInputDto } from '../dtos';
 
 export class AddCartItem {
   constructor(
@@ -9,11 +10,9 @@ export class AddCartItem {
     private readonly productRepository: ProductRepository,
   ) {}
 
-  public async execute(
-    sessionId: string,
-    productId: string,
-    quantity: number,
-  ): Promise<Cart> {
+  public async execute(input: UpdateCartItemInputDto): Promise<Cart> {
+    const { productId, quantity, sessionId } = input;
+
     const product = await this.productRepository.findById(productId);
 
     if (!product) {
