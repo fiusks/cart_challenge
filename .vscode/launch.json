@@ -1,0 +1,30 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch NestJS",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "--inspect=9229",
+        "-r",
+        "ts-node/register",
+        "-r",
+        "tsconfig-paths/register"
+      ],
+      "args": [
+        "src/main.ts"
+      ],
+      "cwd": "${workspaceFolder}",
+      "protocol": "inspector",
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.js"
+      ],
+      "sourceMaps": true,
+      "restart": true,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}
