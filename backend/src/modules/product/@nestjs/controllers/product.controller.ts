@@ -1,13 +1,15 @@
 import { Controller, Get } from '@nestjs/common';
 import { ListProductsdService } from '../../application';
-import { Product } from '../../domain';
+import { ProductDto } from '../dtos';
 
 @Controller()
 export class ProductController {
   constructor(private readonly listProducts: ListProductsdService) {}
 
-  @Get()
-  public async index(): Promise<Product[]> {
-    return this.listProducts.execute();
+  @Get('/products')
+  public async index(): Promise<ProductDto[]> {
+    const result = await this.listProducts.execute();
+
+    return result.map((product) => product.toJSON());
   }
 }
