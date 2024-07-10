@@ -1,5 +1,5 @@
 import { Cart } from '../models';
 
-export interface GetCartItem {
+export interface GetCart {
   execute(): Promise<Cart>;
 }
