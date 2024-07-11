@@ -8,7 +8,7 @@ export class RemoteAddCartItem implements AddCartItem {
   public async execute(input: CartItemInput): Promise<Cart> {
     const { productId, sessionId, quantity } = input;
     const response = await this.httpClient(
-      `cart/${sessionId}/${productId}/${quantity}`,
+      `carts/${sessionId}/${productId}/${quantity}`,
       {
         method: 'POST',
         headers: {

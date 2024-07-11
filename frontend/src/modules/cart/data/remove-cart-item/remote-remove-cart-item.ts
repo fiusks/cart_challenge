@@ -9,7 +9,7 @@ export class RemoteRemoveCartItem implements RemoveCartItem {
     const { productId, sessionId, quantity } = input;
 
     const response = await this.httpClient(
-      `cart/${sessionId}/${productId}/${quantity}`,
+      `carts/${sessionId}/${productId}/${quantity}`,
       {
         method: 'DELETE',
         headers: {

@@ -6,7 +6,7 @@ export class RemoteCreateCart implements CreateCart {
   constructor(private readonly httpClient: HttpClient) {}
 
   public async execute(sessionId: string): Promise<Cart> {
-    const response = await this.httpClient(`cart/${sessionId}`, {
+    const response = await this.httpClient(`carts/${sessionId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
