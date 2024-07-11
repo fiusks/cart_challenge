@@ -1,7 +1,4 @@
 import Logo from '../assets/Brand-logo-new_1 (1).png';
-{
-  /* <img src="image.avif" alt="AVIF Image" srcset="image.jpg" type="image/jpeg"> */
-}
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -28,14 +25,14 @@ export function Header({ cartItemsCount }: HeaderProps) {
           />
         </Link>
 
-        <p className="text-white uppercase">gift guide</p>
-        <p className="text-white uppercase">best sellers</p>
-        <p className="text-white uppercase">shop</p>
-        <p className="text-white uppercase">gifts</p>
-        <p className="text-white uppercase">brands</p>
-        <p className="text-white uppercase">sale</p>
-        <p className="text-white uppercase">stores</p>
-        <p className="text-white uppercase">about</p>
+        <div className="text-white uppercase">gift guide</div>
+        <div className="text-white uppercase">best sellers</div>
+        <div className="text-white uppercase">shop</div>
+        <div className="text-white uppercase">gifts</div>
+        <div className="text-white uppercase">brands</div>
+        <div className="text-white uppercase">sale</div>
+        <div className="text-white uppercase">stores</div>
+        <div className="text-white uppercase">about</div>
 
         <div className="flex flex-row items-center">
           <div>
