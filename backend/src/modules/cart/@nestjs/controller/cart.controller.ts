@@ -62,9 +62,11 @@ export class CartController {
   }
 
   @Get('/carts/:sessionId')
-  public async index(@Param('sessionId') sessionId: string): Promise<CartDto> {
+  public async index(
+    @Param('sessionId') sessionId: string,
+  ): Promise<CartDto | null> {
     const cart = await this.findCartById.execute(sessionId);
 
-    return plainToInstance(CartDto, cart.toJSON());
+    return cart ? plainToInstance(CartDto, cart.toJSON()) : null;
   }
 }
