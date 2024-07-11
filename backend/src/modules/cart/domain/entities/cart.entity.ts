@@ -11,6 +11,7 @@ export class Cart extends BaseEntity {
         CartItem.validator.transform((item) => new CartItem(item)),
       ),
       total: z.bigint().default(BigInt(0)),
+      itemsSum: z.number().default(0),
     });
   }
 
@@ -64,6 +65,13 @@ export class Cart extends BaseEntity {
     );
   }
 
+  private sumItems(): number {
+    return this.#items.reduce(
+      (previousCart, currentCart) => previousCart + currentCart.quantity.value,
+      0,
+    );
+  }
+
   public toCreateProps() {
     return {
       id: this.id.toJSON(),
@@ -80,6 +88,7 @@ export class Cart extends BaseEntity {
       sessionId: this.sessionId,
       items: this.#items.map((item) => item.toJSON()),
       total: this.total.toString(),
+      itemsSum: this.sumItems(),
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
@@ -95,6 +104,10 @@ export class Cart extends BaseEntity {
 
   public get total() {
     return this.calculateTotal();
+  }
+
+  public get itemsSum() {
+    return this.itemsSum();
   }
 
   readonly #sessionId: string;
@@ -121,6 +134,7 @@ export namespace Cart {
     sessionId: string;
     items: CartItem[];
     total: bigint;
+    itemsSum: number;
     createdAt: Date;
     updatedAt: Date;
   };
@@ -130,6 +144,7 @@ export namespace Cart {
     sessionId: string;
     items: CartItem.JSON[];
     total: string;
+    itemsSum: number;
     createdAt: Date;
     updatedAt: Date;
   };
