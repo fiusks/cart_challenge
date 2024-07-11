@@ -11,6 +11,9 @@ export class RemoteCreateCart implements CreateCart {
       headers: {
         'Content-Type': 'application/json',
       },
+      next: {
+        tags: ['cart'],
+      },
     });
 
     const cart = (await response.json()) as CartDto;

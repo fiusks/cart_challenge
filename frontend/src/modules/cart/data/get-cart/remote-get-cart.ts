@@ -11,6 +11,9 @@ export class RemoteGetCart implements GetCart {
       headers: {
         'Content-Type': 'application/json',
       },
+      next: {
+        tags: ['cart'],
+      },
     });
 
     const responseBody = await response.text();
