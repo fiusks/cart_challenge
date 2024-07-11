@@ -5,7 +5,7 @@ import { Cart, FindCartById } from '../../domain';
 export class FindCartByIdService {
   constructor(private readonly findCartById: FindCartById) {}
 
-  public async execute(id: string): Promise<Cart> {
+  public async execute(id: string): Promise<Cart | null> {
     return this.findCartById.execute(id);
   }
 }
