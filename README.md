@@ -14,12 +14,6 @@
 O projeto foi desenvolvido como solução de um desafio técnico que contempla a implementações de um carrinho tanto no backend quanto no frontend
 ---
 
-### Considerações
-
-- Existem algumas melhorias para serem feitas do lado do front-end. O projeto em si foi bem legal e foi interessante estudar mais a respeito sobre o funcionamento do next e Server Side Render, algo que particularmente não tinha muita experiência, mas existe um vasto conteúdo na internet. Como é esperado do desenvolvedor mais habilidade com o backend, foquei mais nessa parte, mas sem abrir mão dos requisitos mínimos solicitados.
-
----
-
 #### Rodando o projeto
 
 Para rodar o projeto, é necessário ter o docker instaldo para criar as instâncias do Postgres e do Redis.
