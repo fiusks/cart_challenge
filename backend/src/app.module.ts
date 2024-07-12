@@ -5,7 +5,6 @@ import { ProductModule } from './modules/product/product.module';
 import { ConfigModule } from '@nestjs/config';
 import { env } from '~/config/env';
 import { BullModule } from '@nestjs/bull';
-import { BullConfig } from '../config';
 
 @Module({
   imports: [
@@ -13,7 +12,15 @@ import { BullConfig } from '../config';
       isGlobal: true,
       validate: env.parse,
     }),
-    BullModule.forRootAsync({ useClass: BullConfig }),
+    BullModule.forRootAsync({
+      useFactory: async () => ({
+        redis: {
+          db: 1,
+          host: 'localhost',
+          port: 6379,
+        },
+      }),
+    }),
     CartModule,
     CommonModule,
     ProductModule,
