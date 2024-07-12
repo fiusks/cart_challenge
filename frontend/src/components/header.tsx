@@ -85,7 +85,7 @@ export function Header({ cart }: HeaderProps) {
       </header>
 
       {isMenuOpen && (
-        <div className="md:hidden text-black">
+        <div className="lg:hidden text-black">
           <Drawer onClose={toggleMenu} position="left">
             <nav className="flex text-black gap-5 pt-5 flex-col justify-center items-start">
               <a className="uppercase border-b border-gray-300 py-2 w-full block">
