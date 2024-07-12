@@ -16,9 +16,11 @@ O projeto foi desenvolvido como solução de um desafio técnico que contempla a
 
 #### Rodando o projeto
 
-Para rodar o projeto, é necessário ter o docker instaldo para criar as instâncias do Postgres e do Redis.
+Para rodar o projeto, é necessário ter o docker instaldo para criar as instâncias do Postgres e do Redis. As envs utilizadas no projeto e no docker podem ser encontradas no .env.example, sendo necessário criar seu próprio arquivo .env.
 
 - Backend
+
+Para executar o código, será necessario abrir o terminal na pasta do backend.
 
 ```bash
 
@@ -39,13 +41,15 @@ $ npx run prisma migrate dev
 # Rodar o projeto backend
 $ yarn start:dev
 
-# O servidor inciará na porta:3000 - acesse http://localhost:3333
+# O servidor inciará na porta:3000
 
 ```
 
 ---
 
 - FrontEnd
+
+Para executar o código, será necessario abrir o terminal na pasta do frontend
 
 ```bash
 # Migrar para a pasta backend
@@ -56,7 +60,7 @@ $ yarn install
 # Rodar o projeto
 $ yarn dev
 
-# O servidor inciará na porta:3000 - acesse http://localhost:3001
+# O servidor inciará na porta:3001 - acesse http://localhost:3001
 
 ```
 
