@@ -10,7 +10,7 @@ import type { Cart as CartModel } from '@/modules/cart';
 import Drawer from './drawer';
 
 interface HeaderProps {
-  cart: CartModel;
+  cart: CartModel | null;
 }
 
 export function Header({ cart }: HeaderProps) {
@@ -76,7 +76,7 @@ export function Header({ cart }: HeaderProps) {
               <div className="relative">
                 <MdOutlineShoppingCart color="white" size={24} />
                 <span className="absolute bottom-4 left-4 inline-flex items-center justify-center h-4 w-4 rounded-full bg-white text-black">
-                  {cart.itemsSum}
+                  {cart?.itemsSum ?? 0}
                 </span>
               </div>
             </button>
@@ -117,7 +117,9 @@ export function Header({ cart }: HeaderProps) {
         </div>
       )}
 
-      {isCartOpen && <Cart key={cart.id} cart={cart} onClose={toggleCart} />}
+      {isCartOpen && cart && (
+        <Cart key={cart.id} cart={cart} onClose={toggleCart} />
+      )}
     </>
   );
 }
