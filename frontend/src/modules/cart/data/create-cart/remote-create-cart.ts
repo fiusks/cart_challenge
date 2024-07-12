@@ -1,6 +1,7 @@
 import { HttpClient } from '@/modules/common';
 import { Cart, CartDto, CreateCart } from '../../domain';
 import { cartConverterToBigInt } from '../cart-converter-to-big-int';
+import { revalidateTag } from 'next/cache';
 
 export class RemoteCreateCart implements CreateCart {
   constructor(private readonly httpClient: HttpClient) {}
@@ -17,6 +18,8 @@ export class RemoteCreateCart implements CreateCart {
     });
 
     const cart = (await response.json()) as CartDto;
+
+    revalidateTag('cart');
 
     return cartConverterToBigInt(cart);
   }
