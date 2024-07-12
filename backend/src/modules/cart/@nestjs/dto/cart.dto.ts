@@ -10,7 +10,10 @@ export class CartDto {
 
   public readonly total: string;
   public readonly itemsSum: number;
-
   public readonly createdAt: Date;
   public readonly updatedAt: Date;
+
+  constructor(partial: Partial<CartDto>) {
+    Object.assign(this, partial);
+  }
 }
