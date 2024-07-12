@@ -1,4 +1,7 @@
-import { NotFoundException } from '@nestjs/common';
+import {
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { Cart } from '../entities';
 import { CartRepository } from '../repositories';
 import { ProductRepository } from '~/modules/product/domain';
@@ -24,15 +27,23 @@ export class RemoveCartItem {
       throw new NotFoundException('Carrinho não encontrado');
     }
 
+    const currentCartItem = cart.items.find(
+      (cartItem) => cartItem.product.id.id === productId,
+    );
+
+    if (!currentCartItem) {
+      throw new UnprocessableEntityException('Produto não existe no carrinho');
+    }
+
     const cartItem = cart.removeItem({
       product: product.toCreateProps(),
       quantity,
     });
 
-    if (cartItem.quantity.value === 0) {
+    if (!cartItem) {
       return await this.cartRepository.deleteCartItem(
         cart.sessionId,
-        cartItem.id.id,
+        currentCartItem.id.id,
       );
     }
 
