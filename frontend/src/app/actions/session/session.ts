@@ -1,3 +1,4 @@
+'use server';
 import { v4 as uuiv4 } from 'uuid';
 import { cookies } from 'next/headers';
 
