@@ -22,7 +22,6 @@ export class RemoteAddCartItem implements AddCartItem {
         },
       },
     );
-    console.log('🚀 ~ RemoteAddCartItem ~ execute ~ response:', response);
 
     const cart = (await response.json()) as CartDto;
 
