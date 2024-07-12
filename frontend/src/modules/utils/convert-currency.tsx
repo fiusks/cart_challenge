@@ -1,5 +1,5 @@
 export function convertCurrency(
-  price: bigint,
+  price: bigint | string,
   locale: string,
   currency: string,
 ) {
