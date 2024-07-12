@@ -19,15 +19,12 @@
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
     "strict": true,
-    "baseUrl":"./",
+    "baseUrl": "./",
     "paths": {
       "~/config/*": ["config/*"],
       "~/database/*": ["database/*"],
-      "~/*": ["src/*"],
+      "~/*": ["src/*"]
     },
-    "typeRoots": [
-      "./node_modules/@types",
-      "./src/@types"
-    ],
-  },
+    "typeRoots": ["./node_modules/@types", "./src/@types"]
+  }
 }
