@@ -6,31 +6,43 @@ import {
   makeRemoveCartItemt,
 } from '@/modules/cart/main';
 import { revalidateTag } from 'next/cache';
+import { generateSession } from '../session';
 
 export async function handleAddProduct(productId: string) {
+  const sessionId = await generateSession();
+
+  await handleGetCart(sessionId);
+
   await makeAddCartItem().execute({
     productId,
-    sessionId: '9f5b2714-09f1-4b68-9e84-c82779652e49',
+    sessionId,
   });
 
   revalidateTag('cart');
 }
 
-export async function handleRemoveCartItem(productId: string) {
+export async function handleRemoveCartItem(
+  productId: string,
+  quantity?: number,
+) {
+  const sessionId = await generateSession();
   await makeRemoveCartItemt().execute({
     productId,
-    sessionId: '9f5b2714-09f1-4b68-9e84-c82779652e49',
+    sessionId,
+    quantity,
   });
 
   revalidateTag('cart');
 }
 
-export async function getCart(sessionId: string) {
+export async function handleGetCart(sessionId: string) {
   const existingCart = await makeGetCart().execute(sessionId);
 
   if (existingCart) return existingCart;
 
-  await makeCreateCart().execute(sessionId);
+  const cart = await makeCreateCart().execute(sessionId);
 
   revalidateTag('cart');
+
+  return cart;
 }
