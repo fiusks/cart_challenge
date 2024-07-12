@@ -11,7 +11,7 @@
 
 ## Sobre o projeto
 
-O projeto foi desenvolvido como solução de um desafio técnico que conteompla implementações de um carrinho tanto no backend quanto no frontend
+O projeto foi desenvolvido como solução de um desafio técnico que contempla a implementações de um carrinho tanto no backend quanto no frontend
 ---
 
 ### Considerações
