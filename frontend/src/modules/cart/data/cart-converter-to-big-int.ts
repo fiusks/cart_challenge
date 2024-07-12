@@ -3,6 +3,8 @@ import { Cart, CartDto } from '../domain';
 export function cartConverterToBigInt(cart: CartDto): Cart {
   const cartItems = cart.items;
 
+  const microsBigInt = BigInt(1000000);
+
   const convertedCartItemsToBigInt = cartItems.map((item) => {
     const product = item.product;
 
@@ -10,13 +12,14 @@ export function cartConverterToBigInt(cart: CartDto): Cart {
       ...item,
       product: {
         ...product,
-        price: BigInt(product.price) / BigInt(1000000),
+        price: BigInt(product.price) / microsBigInt,
       },
     };
   });
 
   return {
     ...cart,
+    total: BigInt(cart.total) / microsBigInt,
     items: convertedCartItemsToBigInt,
   };
 }
