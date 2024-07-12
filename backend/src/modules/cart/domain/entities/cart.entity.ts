@@ -36,10 +36,11 @@ export class Cart extends BaseEntity {
     });
 
     this.#items.push(newCartItem);
+
     return newCartItem;
   }
 
-  public removeItem(props: CartItem.CreateProps): CartItem {
+  public removeItem(props: CartItem.CreateProps): CartItem | null {
     const existingItem = this.#items.find(
       (item) => item.product.id.id === props.product.id,
     );
@@ -50,10 +51,12 @@ export class Cart extends BaseEntity {
 
     existingItem.decreaseQuantity(props.quantity);
 
-    if (existingItem.quantity.value < 0) {
-      throw new UnprocessableEntityException(
-        'Quantidade não pode ser menor do que zero',
+    if (existingItem.quantity.value <= 0) {
+      this.#items = this.#items.filter(
+        (item) => item.product.id.id !== props.product.id,
       );
+
+      return null;
     }
 
     return existingItem;
