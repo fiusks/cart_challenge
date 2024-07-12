@@ -16,7 +16,11 @@ O projeto foi desenvolvido como solução de um desafio técnico que contempla a
 
 #### Rodando o projeto
 
-Para rodar o projeto, é necessário ter o docker instaldo para criar as instâncias do Postgres e do Redis. As envs utilizadas no projeto e no docker podem ser encontradas no .env.example, sendo necessário criar seu próprio arquivo .env.
+Para rodar o projeto, é necessário ter o docker instaldo para criar as instâncias do Postgres e do Redis.
+
+Todo o processo de desenvolvimento foi feito utilizando o Node v20.14.0
+
+As envs utilizadas no projeto e no docker podem ser encontradas no .env.example, sendo necessário criar seu próprio arquivo .env.
 
 - Backend
 
