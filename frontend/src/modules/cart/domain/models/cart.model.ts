@@ -5,7 +5,7 @@ export interface Cart {
   sessionId: string;
   items: CartItem[];
   itemsSum: number;
-  total: string;
+  total: bigint;
   createdAt: Date;
   updatedAt: Date;
 }
