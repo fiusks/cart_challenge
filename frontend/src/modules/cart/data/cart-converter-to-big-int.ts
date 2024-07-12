@@ -17,9 +17,13 @@ export function cartConverterToBigInt(cart: CartDto): Cart {
     };
   });
 
+  const orderedItems = convertedCartItemsToBigInt.sort(
+    (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+  );
+
   return {
     ...cart,
     total: BigInt(cart.total) / microsBigInt,
-    items: convertedCartItemsToBigInt,
+    items: orderedItems,
   };
 }
