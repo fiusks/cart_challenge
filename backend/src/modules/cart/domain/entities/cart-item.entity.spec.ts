@@ -5,12 +5,15 @@ import { Product } from '~/modules/product/domain';
 describe('CartItem', () => {
   let productProps: Product.CreateProps;
   let quantityProps: Quantity.CreateProps;
+  const imageUrl =
+    'https://cdn.shopify.com/s/files/1/0587/6075/7446/files/BT-US_Malbec-Regular-1_1060b816-76ec-49ab-81a6-c284715e56cc.jpg?v=1717775207&width=626&crop=center';
 
   beforeEach(() => {
     productProps = {
       id: '25117f80-79f1-4c18-baff-3c726233cb7d',
       name: 'Floratta',
       price: BigInt(100),
+      imageUrl,
     };
 
     quantityProps = 2;

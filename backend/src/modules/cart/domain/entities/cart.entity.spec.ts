@@ -8,12 +8,16 @@ describe('Cart', () => {
     id: uuidv4(),
     name: 'Floratta',
     price: BigInt(60),
+    imageUrl:
+      'https://cdn.shopify.com/s/files/1/0587/6075/7446/files/BT-US_Floratta-Summer-Love-Set-1_7e5122cb-5b9d-4624-9da9-b92b7142c178.jpg?v=1716562584&width=626&crop=center',
   };
 
   const malbecProduct = {
     id: uuidv4(),
     name: 'Malbec',
     price: BigInt(210),
+    imageUrl:
+      'https://cdn.shopify.com/s/files/1/0587/6075/7446/files/BT-US_Malbec-Regular-1_1060b816-76ec-49ab-81a6-c284715e56cc.jpg?v=1717775207&width=626&crop=center',
   };
 
   const cartSessionId = uuidv4();
@@ -83,6 +87,8 @@ describe('Cart', () => {
     const product = {
       name: 'Non-existent Product',
       price: BigInt(150),
+      imageUrl:
+        'https://cdn.shopify.com/s/files/1/0587/6075/7446/files/BT-US_Malbec-Regular-1_1060b816-76ec-49ab-81a6-c284715e56cc.jpg?v=1717775207&width=626&crop=center',
     };
 
     expect(() => cart.removeItem({ product, quantity: 5 })).toThrow(
