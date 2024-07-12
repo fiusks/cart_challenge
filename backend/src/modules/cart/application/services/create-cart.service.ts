@@ -16,8 +16,8 @@ export class CreateCartService {
       Cart.create({ sessionId, items: [] }),
     );
 
-    this.deleteCartQueue.add('DeleteCartOnExpireQueue', newCart, {
-      delay: 60 * 60 * 24,
+    await this.deleteCartQueue.add('DeleteCartOnExpireQueue', newCart, {
+      delay: 24 * 60 * 60 * 1000, //milliseconds
     });
 
     return newCart;
