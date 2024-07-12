@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { BaseEntity, EntityId } from '~/modules/common/domain';
 import { CartItem } from './cart-item.entity';
 import { UnprocessableEntityException } from '@nestjs/common';
+import { addHours } from 'date-fns';
 
 export class Cart extends BaseEntity {
   public static get validator() {
@@ -70,6 +71,10 @@ export class Cart extends BaseEntity {
       (previousCart, currentCart) => previousCart + currentCart.quantity.value,
       0,
     );
+  }
+
+  public dateToExclude(): Date {
+    return addHours(this.updatedAt, 24);
   }
 
   public toCreateProps() {
